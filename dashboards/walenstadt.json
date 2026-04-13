@@ -1317,7 +1317,7 @@
           ]
         }
       },
-      "pluginVersion": "7.0.0",
+      "pluginVersion": "7.2.2",
       "targets": [
         {
           "query": "from(bucket: \"walensee\")\n  |> range(start: v.timeRangeStart, stop:v.timeRangeStop)\n  |> filter(fn: (r) =>\n    r._measurement == \"murg\" and\n    r._field == \"level\" or\n    r._measurement == \"linth\" and\n    r._field == \"temperature\"\n  )",
@@ -1651,7 +1651,7 @@
           ]
         }
       },
-      "pluginVersion": "7.0.0",
+      "pluginVersion": "7.2.2",
       "targets": [
         {
           "hide": false,
@@ -1740,7 +1740,7 @@
           ]
         }
       },
-      "pluginVersion": "7.0.0",
+      "pluginVersion": "7.2.2",
       "targets": [
         {
           "hide": false,
@@ -2288,7 +2288,6 @@
             }
           },
           "decimals": 2,
-          "displayName": "Wasserstand",
           "fieldMinMax": false,
           "mappings": [],
           "thresholds": {
@@ -2309,7 +2308,38 @@
             ]
           }
         },
-        "overrides": []
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "aktuell"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Aktuell"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "2025"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "2025"
+              },
+              {
+                "id": "color",
+                "value": {
+                  "mode": "fixed"
+                }
+              }
+            ]
+          }
+        ]
       },
       "gridPos": {
         "h": 8,
@@ -2317,7 +2347,6 @@
         "x": 0,
         "y": 41
       },
-      "hideTimeOverride": false,
       "id": 10,
       "interval": "2h",
       "options": {
@@ -2339,8 +2368,18 @@
             "type": "influxdb",
             "uid": "2a4a2d63-9729-4abf-afd9-8204cc8a173a"
           },
-          "query": "from(bucket: \"walensee\")\n  |> range(start: -30d)\n  |> filter(fn: (r) =>\n    r._measurement == \"murg\" and\n    r._field == \"level\"\n  )\n  |> aggregateWindow(every: 1h, fn: mean)",
-          "refId": "A"
+          "hide": false,
+          "query": "from(bucket: \"walensee\")\n  |> range(start: -30d)\n  |> filter(fn: (r) =>\n    r._measurement == \"murg\" and\n    r._field == \"level\"\n  )\n  |> aggregateWindow(every: 1h, fn: mean)\n  ",
+          "refId": "aktuell"
+        },
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "2a4a2d63-9729-4abf-afd9-8204cc8a173a"
+          },
+          "hide": false,
+          "query": "from(bucket: \"walensee\")\n    |> range(start: -395d, stop: -365d)\n    |> filter(fn: (r) =>\n      r._measurement == \"murg\" and\n      r._field == \"level\"\n    )\n    |> aggregateWindow(every: 1h, fn: mean)\n    |> timeShift(duration: 1y)\n",
+          "refId": "2025"
         }
       ],
       "timeFrom": "now-30d",
@@ -2398,7 +2437,6 @@
             }
           },
           "decimals": 2,
-          "displayName": "Wassertemperatur",
           "fieldMinMax": false,
           "mappings": [],
           "thresholds": {
@@ -2412,7 +2450,38 @@
           },
           "unit": "celsius"
         },
-        "overrides": []
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "Aktuell"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Aktuell"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "2025"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "2025"
+              },
+              {
+                "id": "color",
+                "value": {
+                  "mode": "fixed"
+                }
+              }
+            ]
+          }
+        ]
       },
       "gridPos": {
         "h": 8,
@@ -2442,7 +2511,16 @@
             "uid": "2a4a2d63-9729-4abf-afd9-8204cc8a173a"
           },
           "query": "from(bucket: \"walensee\")\n  |> range(start: -30d)\n  |> filter(fn: (r) =>\n    r._measurement == \"linth\" and\n    r._field == \"temperature\"\n  )\n  |> aggregateWindow(every: 1h, fn: mean)",
-          "refId": "A"
+          "refId": "Aktuell"
+        },
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "2a4a2d63-9729-4abf-afd9-8204cc8a173a"
+          },
+          "hide": false,
+          "query": "from(bucket: \"walensee\")\n    |> range(start: -395d, stop: -365d)\n    |> filter(fn: (r) =>\n      r._measurement == \"linth\" and\n      r._field == \"temperature\"\n    )\n    |> aggregateWindow(every: 1h, fn: mean)\n    |> timeShift(duration: 1y)\n",
+          "refId": "2025"
         }
       ],
       "timeFrom": "now-30d",
@@ -2500,7 +2578,6 @@
             }
           },
           "decimals": 2,
-          "displayName": "Wasserstand",
           "fieldMinMax": false,
           "mappings": [],
           "thresholds": {
@@ -2522,7 +2599,38 @@
           },
           "unit": "M.ü.M"
         },
-        "overrides": []
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "Aktuell"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Aktuell"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "2025"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "2025"
+              },
+              {
+                "id": "color",
+                "value": {
+                  "mode": "fixed"
+                }
+              }
+            ]
+          }
+        ]
       },
       "gridPos": {
         "h": 8,
@@ -2553,7 +2661,16 @@
             "uid": "2a4a2d63-9729-4abf-afd9-8204cc8a173a"
           },
           "query": "from(bucket: \"walensee\")\n  |> range(start: -180d)\n  |> filter(fn: (r) =>\n    r._measurement == \"murg\" and\n    r._field == \"level\"\n  )\n  |> aggregateWindow(every: 24h, fn: mean)",
-          "refId": "A"
+          "refId": "Aktuell"
+        },
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "2a4a2d63-9729-4abf-afd9-8204cc8a173a"
+          },
+          "hide": false,
+          "query": "from(bucket: \"walensee\")\n    |> range(start: -545d, stop: -365d)\n    |> filter(fn: (r) =>\n      r._measurement == \"murg\" and\n      r._field == \"level\"\n    )\n  |> aggregateWindow(every: 24h, fn: mean)\n  |> timeShift(duration: 1y)\n",
+          "refId": "2025"
         }
       ],
       "timeFrom": "now-180d",
@@ -2714,7 +2831,6 @@
             }
           },
           "decimals": 2,
-          "displayName": "Wasserstand",
           "fieldMinMax": false,
           "mappings": [],
           "thresholds": {
@@ -2736,7 +2852,38 @@
           },
           "unit": "M.ü.M"
         },
-        "overrides": []
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "Aktuell"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Aktuell"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "2025"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "2025"
+              },
+              {
+                "id": "color",
+                "value": {
+                  "mode": "fixed"
+                }
+              }
+            ]
+          }
+        ]
       },
       "gridPos": {
         "h": 8,
@@ -2767,7 +2914,16 @@
             "uid": "2a4a2d63-9729-4abf-afd9-8204cc8a173a"
           },
           "query": "from(bucket: \"walensee\")\n  |> range(start: -366d)\n  |> filter(fn: (r) =>\n    r._measurement == \"murg\" and\n    r._field == \"level\"\n  )\n  |> aggregateWindow(every: 24h, fn: mean)",
-          "refId": "A"
+          "refId": "Aktuell"
+        },
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "2a4a2d63-9729-4abf-afd9-8204cc8a173a"
+          },
+          "hide": false,
+          "query": "from(bucket: \"walensee\")\n    |> range(start: -730d, stop: -365d)\n    |> filter(fn: (r) =>\n      r._measurement == \"murg\" and\n      r._field == \"level\"\n    )\n  |> aggregateWindow(every: 24h, fn: mean)\n  |> timeShift(duration: 1y)\n",
+          "refId": "2025"
         }
       ],
       "timeFrom": "now-1y",
@@ -2901,6 +3057,6 @@
   "timezone": "browser",
   "title": "Walensee",
   "uid": "eek0kpuvwm22x",
-  "version": 33,
+  "version": 34,
   "weekStart": "monday"
 }
