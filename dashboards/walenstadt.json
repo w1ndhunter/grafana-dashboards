@@ -2336,6 +2336,24 @@
                 "value": {
                   "mode": "fixed"
                 }
+              },
+              {
+                "id": "custom.lineStyle",
+                "value": {
+                  "dash": [
+                    0,
+                    10
+                  ],
+                  "fill": "dot"
+                }
+              },
+              {
+                "id": "custom.lineWidth",
+                "value": 2
+              },
+              {
+                "id": "custom.fillOpacity",
+                "value": 0
               }
             ]
           }
@@ -2477,6 +2495,20 @@
                 "id": "color",
                 "value": {
                   "mode": "fixed"
+                }
+              },
+              {
+                "id": "custom.lineWidth",
+                "value": 2
+              },
+              {
+                "id": "custom.lineStyle",
+                "value": {
+                  "dash": [
+                    0,
+                    10
+                  ],
+                  "fill": "dot"
                 }
               }
             ]
@@ -2627,6 +2659,24 @@
                 "value": {
                   "mode": "fixed"
                 }
+              },
+              {
+                "id": "custom.lineWidth",
+                "value": 2
+              },
+              {
+                "id": "custom.fillOpacity",
+                "value": 0
+              },
+              {
+                "id": "custom.lineStyle",
+                "value": {
+                  "dash": [
+                    0,
+                    10
+                  ],
+                  "fill": "dot"
+                }
               }
             ]
           }
@@ -2742,7 +2792,36 @@
           },
           "unit": "celsius"
         },
-        "overrides": []
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "2025"
+            },
+            "properties": [
+              {
+                "id": "custom.lineWidth",
+                "value": 2
+              },
+              {
+                "id": "custom.lineStyle",
+                "value": {
+                  "dash": [
+                    0,
+                    10
+                  ],
+                  "fill": "dot"
+                }
+              },
+              {
+                "id": "color",
+                "value": {
+                  "mode": "fixed"
+                }
+              }
+            ]
+          }
+        ]
       },
       "gridPos": {
         "h": 8,
@@ -2774,6 +2853,15 @@
           },
           "query": "from(bucket: \"walensee\")\n  |> range(start: -180d)\n  |> filter(fn: (r) =>\n    r._measurement == \"linth\" and\n    r._field == \"temperature\"\n  )\n  |> aggregateWindow(every: 24h, fn: mean)",
           "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "2a4a2d63-9729-4abf-afd9-8204cc8a173a"
+          },
+          "hide": false,
+          "query": "from(bucket: \"walensee\")\n  |> range(start: -545d, stop: -365d)\n  |> filter(fn: (r) =>\n    r._measurement == \"linth\" and\n    r._field == \"temperature\"\n  )\n  |> aggregateWindow(every: 24h, fn: mean)\n  |> timeShift(duration: 1y)",
+          "refId": "2025"
         }
       ],
       "timeFrom": "now-180d",
@@ -2879,6 +2967,24 @@
                 "id": "color",
                 "value": {
                   "mode": "fixed"
+                }
+              },
+              {
+                "id": "custom.lineWidth",
+                "value": 2
+              },
+              {
+                "id": "custom.fillOpacity",
+                "value": 0
+              },
+              {
+                "id": "custom.lineStyle",
+                "value": {
+                  "dash": [
+                    0,
+                    10
+                  ],
+                  "fill": "dot"
                 }
               }
             ]
@@ -2995,7 +3101,36 @@
           },
           "unit": "celsius"
         },
-        "overrides": []
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byFrameRefID",
+              "options": "2025"
+            },
+            "properties": [
+              {
+                "id": "custom.lineWidth",
+                "value": 2
+              },
+              {
+                "id": "custom.lineStyle",
+                "value": {
+                  "dash": [
+                    0,
+                    10
+                  ],
+                  "fill": "dot"
+                }
+              },
+              {
+                "id": "color",
+                "value": {
+                  "mode": "fixed"
+                }
+              }
+            ]
+          }
+        ]
       },
       "gridPos": {
         "h": 8,
@@ -3027,6 +3162,15 @@
           },
           "query": "from(bucket: \"walensee\")\n  |> range(start: -366d)\n  |> filter(fn: (r) =>\n    r._measurement == \"linth\" and\n    r._field == \"temperature\"\n  )\n  |> aggregateWindow(every: 24h, fn: mean)",
           "refId": "A"
+        },
+        {
+          "datasource": {
+            "type": "influxdb",
+            "uid": "2a4a2d63-9729-4abf-afd9-8204cc8a173a"
+          },
+          "hide": false,
+          "query": "from(bucket: \"walensee\")\n  |> range(start: -730d, stop: -365d)\n  |> filter(fn: (r) =>\n    r._measurement == \"linth\" and\n    r._field == \"temperature\"\n  )\n  |> aggregateWindow(every: 24h, fn: mean)\n  |> timeShift(duration: 1y)",
+          "refId": "2025"
         }
       ],
       "timeFrom": "now-1y",
@@ -3057,6 +3201,6 @@
   "timezone": "browser",
   "title": "Walensee",
   "uid": "eek0kpuvwm22x",
-  "version": 34,
+  "version": 35,
   "weekStart": "monday"
 }
